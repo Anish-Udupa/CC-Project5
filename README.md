@@ -77,3 +77,62 @@ Login to the mongo shell and -
 Feel free to play around for brownie points!
 
 ## All Done! :)
+
+
+
+# Execution Steps
+
+## Install dependencies
+Install minikube, docker and kubernetes
+
+## Start minikube
+
+```script
+minikube start
+```
+
+## Apply all the files
+
+```script
+docker-compose build -f "./flask-app-image.dockerfile" . --no-cache
+kubectl apply -f secrets.yaml
+kubectl apply -f configmap.yaml
+kubectl apply -f services.yaml
+kubectl apply -f deployment.yaml
+```
+Do it one by one
+
+## Make sure that all pods, services and deployments are running properly
+
+```script
+kubectl get pods
+kubectl get svc
+kubectl get deployments
+```
+
+Make sure that all of them are complete i.e. progress should be 1/1 or 2/2 or etc. Basically progress should be full
+
+## View logs
+In case of any errors, view the log of the pod
+
+```script
+kubectl logs <pod_name>
+```
+
+## Get minikube IP
+
+```script
+minikube ip
+```
+
+## Open Application
+
+The services have exposed nodeports.
+
+To view the nodeport:
+
+```script
+kubectl get svc
+```
+Open the application on firefox.
+URL: http://<minikube_ip>:<nodeport>/
