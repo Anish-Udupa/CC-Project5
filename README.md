@@ -91,10 +91,30 @@ Install minikube, docker and kubernetes
 minikube start
 ```
 
+## Update envs
+
+```script
+eval $(minikube docker-env)
+```
+The above command works only in linux OSs. In case of windows, import flask-app image after building
+
+## Build the flask-app image
+
+Change to the directory containing these files
+
+```script
+docker-compose build --no-cache
+```
+
+If you are running minikube on windows, import the image
+
+```script
+minikube image load flask-app
+```
+
 ## Apply all the files
 
 ```script
-docker-compose build -f "./flask-app-image.dockerfile" . --no-cache
 kubectl apply -f secrets.yaml
 kubectl apply -f configmap.yaml
 kubectl apply -f services.yaml
